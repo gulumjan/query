@@ -8,7 +8,7 @@ const TodoList = () => {
     <div className={scss.TodoList}>
       <div className={scss.container}>
         <div className={scss.content}>
-          <h1>Todo List</h1>
+          <h1 style={{ textAlign: "center", padding: "28px 0" }}>Todo List</h1>
           <AddTodo />
         </div>
       </div>

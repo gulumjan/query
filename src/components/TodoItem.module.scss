@@ -1,0 +1,26 @@
+.TodoItem {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 26px;
+    h1 {
+      text-align: center;
+    }
+    .content {
+      width: 423px;
+      display: flex;
+      flex-direction: column;
+      width: 423px;
+      height: auto;
+      align-items: center;
+      border: 1px solid #000;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

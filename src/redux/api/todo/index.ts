@@ -16,6 +16,17 @@ const api = index.injectEndpoints({
       }),
       providesTags: ["todo"],
     }),
+    getTodosById: builder.query<
+      TODO.GetTodosByIdResponse,
+      TODO.GetTodosByIdRequest
+    >({
+      query: (_id) => ({
+        url: `${ENDPOINT}/${_id}`,
+        method: "GET",
+      }),
+      providesTags: ["todo"],
+    }),
+
     postTodos: builder.mutation<TODO.PostTodosResponse, TODO.PostTodosRequest>({
       query: (data) => ({
         url: `${ENDPOINT}`,
@@ -24,8 +35,22 @@ const api = index.injectEndpoints({
       }),
       invalidatesTags: ["todo"],
     }),
+    deleteTodos: builder.mutation<
+      TODO.DeleteTodoResponse,
+      TODO.DeleteTodoRequest
+    >({
+      query: ({ _id }) => ({
+        url: `${ENDPOINT}/${_id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["todo"],
+    }),
   }),
 });
 
-export const { useGetTodosQuery } = api;
-export const { usePostTodosMutation } = api;
+export const {
+  usePostTodosMutation,
+  useGetTodosByIdQuery,
+  useDeleteTodosMutation,
+  useGetTodosQuery,
+} = api;

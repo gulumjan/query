@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
-import { useGetTodosQuery, usePostTodosMutation } from "../redux/api/todo";
+import { useState } from "react";
+import {
+  useDeleteTodosMutation,
+  useGetTodosQuery,
+  usePostTodosMutation,
+} from "../redux/api/todo";
+import { useNavigate } from "react-router-dom";
 
 const AddTodo = () => {
-  const { data: todos, refetch, getTodos } = useGetTodosQuery();
+  const { data: todos = [] } = useGetTodosQuery();
   const [postTodos] = usePostTodosMutation();
-  // const [value, setValue] = useState<string>("");
+  const [deleteTodos] = useDeleteTodosMutation();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState<string>("");
   const [age, setAge] = useState<number>(0);
@@ -17,17 +23,17 @@ const AddTodo = () => {
       setUsername("");
       setAge(0);
       setPhotoUrl("");
-      refetch();
     }
   };
   console.log(todos);
 
-  const fetchTodos = async () => {
-    await getTodos();
+  const handleLink = (_id: number) => {
+    navigate(`/item/${_id}`);
   };
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+
+  const removeTodos = async (_id: number) => {
+    await deleteTodos(_id);
+  };
 
   return (
     <div>
@@ -69,13 +75,40 @@ const AddTodo = () => {
         }}
       >
         {todos?.map((el, index) => (
-          <ul key={index}>
-            <h5 style={{ color: "#fff" }}>{el.username}</h5>
-            <h5 style={{ color: "#fff" }}>{el.age}</h5>
-            <>
-              <img src={el.photoUrl} alt={el.username} width={50} />
-            </>
-          </ul>
+          <div
+            style={{ display: "flex", flexWrap: "wrap", marginTop: "26px" }}
+            key={index}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "423px",
+                height: "auto",
+                alignItems: "center",
+                border: "1px solid #000",
+              }}
+            >
+              <img style={{ width: "100%" }} src={el.photoUrl} alt="" />
+              <p>Name : {el.username}</p>
+              <p> Age :{el.age}</p>
+
+              <div style={{ display: "flex", padding: "7px 0", gap: "8px" }}>
+                <button
+                  style={{ padding: "8px 28px " }}
+                  onClick={() => removeTodos(el._id!)}
+                >
+                  delete
+                </button>
+                <button
+                  style={{ padding: "8px 28px " }}
+                  onClick={() => handleLink(el._id!)}
+                >
+                  get by id
+                </button>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>

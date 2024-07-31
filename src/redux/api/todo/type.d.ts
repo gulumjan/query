@@ -1,18 +1,16 @@
 namespace TODO {
-  type GetTodosResponse = {
-    username: string;
-    age: number;
-    photoUrl: string;
-  }[];
+  type GetTodosResponse = ITodo[];
+
   type GetTodosRequest = void;
-  type PostTodosResponse = {
-    username: string;
-    age: number;
-    photoUrl: string;
-  }[];
-  type PostTodosRequest = {
-    username: string;
-    age: number;
-    photoUrl: string;
-  };
+  type PostTodosResponse = ITodo[];
+
+  type PostTodosRequest = ITodo;
+
+  type DeleteTodoResponse = [];
+
+  type DeleteTodoRequest = number;
+
+  type GetTodosByIdResponse = ITodo;
+
+  type GetTodosByIdRequest = number;
 }
